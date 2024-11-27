@@ -126,7 +126,7 @@ order by 2,3
 
 -- Vaccination percent per population
 
-create View VaccinatedPopulationPercent as
+create View Vaccinated_Population_Percent as
 
 select CDs.continent,
 	   CDs.location,
@@ -146,7 +146,7 @@ Select location,
 	   date,
 	   total_cases,
 	   total_deaths,
-	   (total_deaths/total_cases)*100 DeathPercentageCase
+	   (total_deaths/total_cases) Death_Percentage_per_totalCases
 From PortoflioProject..CovidDeaths
 where continent is not null
 
@@ -164,7 +164,7 @@ create view G_numbers as
 
 Select sum(new_cases) totalCases,
 	   SUM(cast(new_deaths as int)) Totaldeaths,
-	   (SUM(Cast(new_deaths as int))/SUM(new_cases))*100 DeathPercentageCase
+	   (SUM(Cast(new_deaths as int))/SUM(new_cases)) Death_Percentage_per_totalCases
 From PortoflioProject..CovidDeaths
 Where continent is not null
 
@@ -173,7 +173,7 @@ create view H_infection as
 
 Select location,
 	   population,max(total_cases) HighestInfictionCount, 
-	   max((total_cases/population))*100 PopulationInfected
+	   max((total_cases/population)) Population_Infected_percentage
 From PortoflioProject..CovidDeaths
 where continent is not null
 group  by population,location
@@ -185,7 +185,7 @@ Select location,
 	   population,
 	   date,
 	   max(total_cases) HighestInfictionCount, 
-	   max((total_cases/population))*100 PopulationInfected
+	   max((total_cases/population)) Population_Infected_percentage
 From PortoflioProject..CovidDeaths
 where continent is not null
 group  by population,location,date
