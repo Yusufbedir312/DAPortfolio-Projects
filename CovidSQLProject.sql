@@ -124,6 +124,8 @@ order by 2,3
 
 -- Views for later Visulaizations
 
+-- Vaccination percent per population
+
 create View VaccinatedPopulationPercent as
 
 select CDs.continent,
@@ -138,7 +140,7 @@ join PortoflioProject..CovidVaccinations CVs
 where CDs.continent is not null
 
 -- total Cases Vs total deaths
-create view CasevDeath as
+create view Case_vS_Death as
 
 Select location,
 	   date,
@@ -149,7 +151,7 @@ From PortoflioProject..CovidDeaths
 where continent is not null
 
 -- Deaths per continent 
-create view DContinent as
+create view D_Continent as
 
 Select location, SUM(cast(new_deaths as int)) as TotalDeathCount
 From PortoflioProject..CovidDeaths
@@ -158,7 +160,7 @@ and location not in ('World', 'European Union', 'International')
 Group by location
 
 -- Global Numbers
-create view Gnumbers as
+create view G_numbers as
 
 Select sum(new_cases) totalCases,
 	   SUM(cast(new_deaths as int)) Totaldeaths,
@@ -167,7 +169,7 @@ From PortoflioProject..CovidDeaths
 Where continent is not null
 
 -- Highest Infiction Count without date
-create view Hinfection as
+create view H_infection as
 
 Select location,
 	   population,max(total_cases) HighestInfictionCount, 
@@ -177,7 +179,7 @@ where continent is not null
 group  by population,location
 
 -- Highest Infiction Count with date
-create view Hinfection as
+create view H_infection_d8 as
 
 Select location,
 	   population,
