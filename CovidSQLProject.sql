@@ -169,7 +169,7 @@ Select sum(new_cases) total_Cases,
 From PortoflioProject..CovidDeaths
 Where continent is not null
 
--- Highest Infiction Count without date
+-- Highest Infiction 
 create view H_infection as
 
 Select location,
@@ -180,14 +180,11 @@ From PortoflioProject..CovidDeaths
 where continent is not null
 group  by population,location
 
--- Highest Infiction Count with date
-create view H_infection_d8 as
+-- Deaths per Country 
+create view D_Country as
 
 Select location,
-	   population,
-	   date,
-	   max(total_cases) Highest_Infiction_Count, 
-	   max((total_cases/population)) Population_Infected_percentage_d8s
+	   SUM(cast(new_deaths as int)) Total_Death
 From PortoflioProject..CovidDeaths
-where continent is not null
-group  by population,location,date
+Where continent is not null 
+Group by location
