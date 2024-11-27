@@ -153,7 +153,8 @@ where continent is not null
 -- Deaths per continent 
 create view D_Continent as
 
-Select location, SUM(cast(new_deaths as int)) as TotalDeathCount
+Select location,
+	   SUM(cast(new_deaths as int)) Total_Death
 From PortoflioProject..CovidDeaths
 Where continent is null 
 and location not in ('World', 'European Union', 'International')
@@ -162,8 +163,8 @@ Group by location
 -- Global Numbers
 create view G_numbers as
 
-Select sum(new_cases) totalCases,
-	   SUM(cast(new_deaths as int)) Totaldeaths,
+Select sum(new_cases) total_Cases,
+	   SUM(cast(new_deaths as int)) Total_deaths,
 	   (SUM(Cast(new_deaths as int))/SUM(new_cases)) Death_Percentage_per_totalCases
 From PortoflioProject..CovidDeaths
 Where continent is not null
@@ -172,7 +173,8 @@ Where continent is not null
 create view H_infection as
 
 Select location,
-	   population,max(total_cases) HighestInfictionCount, 
+	   population,
+	   max(total_cases) Highest_Infiction_Count, 
 	   max((total_cases/population)) Population_Infected_percentage
 From PortoflioProject..CovidDeaths
 where continent is not null
@@ -184,8 +186,8 @@ create view H_infection_d8 as
 Select location,
 	   population,
 	   date,
-	   max(total_cases) HighestInfictionCount, 
-	   max((total_cases/population)) Population_Infected_percentage
+	   max(total_cases) Highest_Infiction_Count, 
+	   max((total_cases/population)) Population_Infected_percentage_d8s
 From PortoflioProject..CovidDeaths
 where continent is not null
 group  by population,location,date
